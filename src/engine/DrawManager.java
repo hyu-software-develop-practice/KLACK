@@ -1062,6 +1062,63 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
+	/**
+	 * Draws mode select menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+	public void modeSelect(final Screen screen, final int option) {
+		String SelectString = "Select mode with W + S, confirm with SPACE.";
+		String TutorialString = "T U T O R I A L   M O D E";
+		String PlayString = "P L A Y   M O D E";
+		String InfiniteString = "I N F I N I T E   M O D E";
+		String SinarioString = "S I N A R I O  M O D E";
+		String MainString = "M A I N";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
+
+		if (option == 0)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, TutorialString,
+				screen.getHeight() / 6 * 2);
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, PlayString,
+				screen.getHeight() / 6 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, InfiniteString, screen.getHeight()
+				/ 6 * 2 + fontRegularMetrics.getHeight() * 4);
+		if (option == 3)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, SinarioString, screen.getHeight() / 6 * 2
+				+ fontRegularMetrics.getHeight() * 6);
+		if (option == 4)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
+				+ fontRegularMetrics.getHeight() * 8);
+	}
+
+
+
+
+
+
+
 
 	public void drawRandomBox(final Screen screen, final int option) {
 		String introduceString1 = "SELECT ONE OF THE THREE BOXES";

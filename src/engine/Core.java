@@ -51,6 +51,11 @@ public final class Core {
     private static int difficulty = 1;
 
     /**
+     * mode of the game
+     */
+    private static int mode = 1;
+
+    /**
      * Difficulty settings for level 1.
      */
     private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1, 1, 1);
@@ -187,7 +192,24 @@ public final class Core {
                     LOGGER.info("Closing title screen.");
                     break;
 
+
                 case 2:
+
+                    currentScreen = new ModeScreen(width, height, FPS, 0);
+                    LOGGER.info("Select Mode");
+                    mode = frame.setScreen(currentScreen);
+                    if(mode == 4){
+                        returnCode = 1;
+                        LOGGER.info("Go Main");
+                        break;
+                    } else { }
+
+                    //main select 만 구현되어있음. 추후 수정
+
+
+
+
+
                     currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
                     LOGGER.info("Select Difficulty");
                     difficulty = frame.setScreen(currentScreen);
@@ -445,6 +467,7 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
+
                 case 3:
 
                     // High scores.
