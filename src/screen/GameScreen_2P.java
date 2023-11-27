@@ -612,7 +612,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawLivesbar_2p(this, this.lives_1p, 8, "1P lives");
         drawManager.drawLivesbar_2p(this, this.lives_2p, 330, "2P lives");
         drawManager.drawCoin(this, this.coin, 0);
-        drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
+        drawManager.drawitem(this,itemManager.getShieldCount(),itemManager.getBombCount());
         isboss = gameSettings.checkIsBoss();
 
         if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
@@ -644,8 +644,6 @@ public class GameScreen_2P extends Screen {
                 drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
         }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
-        //drawManager.scoreEmoji(this, this.score_1P);
-        drawManager.drawSoundButton2(this);
         if (inputManager.isKeyDown(KeyEvent.VK_C)) {
             isSoundOn = !isSoundOn;
             if (isSoundOn) {
@@ -657,7 +655,6 @@ public class GameScreen_2P extends Screen {
             }
         }
 
-        drawManager.drawSoundStatus2(this, isSoundOn);
         drawManager.drawTimer(this, timer.getElapsedTime());
 
         //GameOver
@@ -689,6 +686,19 @@ public class GameScreen_2P extends Screen {
         // If Game has been paused
         if (this.pause) {
             drawManager.drawPaused(this);
+            drawManager.drawSoundButton2(this);
+            if (inputManager.isKeyDown(KeyEvent.VK_C)) {
+                isSoundOn = !isSoundOn;
+                if (isSoundOn) {
+                    bgm.InGame_bgm_play();
+                } else {
+                    bgm.InGame_bgm_stop();
+                    soundEffect.SoundEffect_stop();
+                    bgm.enemyShipSpecialbgm_stop();
+                }
+            }
+
+            drawManager.drawSoundStatus2(this, isSoundOn);
         }
 
         drawManager.completeDrawing(this);
