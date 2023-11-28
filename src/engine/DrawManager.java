@@ -670,7 +670,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontSmall);
 		backBufferGraphics.setColor(Color.GREEN);
 		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, 30, 450);
+		backBufferGraphics.drawString(timeString, screen.getWidth() - 50, 60);
 	}
 
 	private String formatTime(long elapsedTime) {
@@ -717,7 +717,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.GREEN);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
+		backBufferGraphics.drawString(text, 10, 450);
 	}
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
@@ -2838,13 +2838,13 @@ if (option == 35)
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.WHITE);
 			String text = String.format("%d", ComboCount) + " Combo";
-			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+			backBufferGraphics.drawString(text, screen.getWidth()/2-15, 400);
 		}
 		else{
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.red);
 			String text = "Miss";
-			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+			backBufferGraphics.drawString(text, screen.getWidth()/2-10, 400);
 		}
 	}
 }
