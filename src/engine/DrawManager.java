@@ -1081,7 +1081,6 @@ public final class DrawManager {
 		String SelectString = "Select mode with W + S, confirm with SPACE.";
 		String TutorialString = "T U T O R I A L   M O D E";
 		String PlayString = "P L A Y   M O D E";
-		String InfiniteString = "I N F I N I T E   M O D E";
 		String SinarioString = "S I N A R I O  M O D E";
 		String MainString = "M A I N";
 
@@ -1104,20 +1103,14 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, InfiniteString, screen.getHeight()
-				/ 6 * 2 + fontRegularMetrics.getHeight() * 4);
+		drawCenteredRegularString(screen, SinarioString, screen.getHeight() / 6 * 2
+				+ fontRegularMetrics.getHeight() * 4);
 		if (option == 3)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, SinarioString, screen.getHeight() / 6 * 2
-				+ fontRegularMetrics.getHeight() * 6);
-		if (option == 4)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
-				+ fontRegularMetrics.getHeight() * 8);
+				+ fontRegularMetrics.getHeight() * 6);
 	}
 
 

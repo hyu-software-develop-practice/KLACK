@@ -198,13 +198,16 @@ public final class Core {
                     currentScreen = new ModeScreen(width, height, FPS, 0);
                     LOGGER.info("Select Mode");
                     mode = frame.setScreen(currentScreen);
-                    if(mode == 4){
+                    if(mode == 3){
                         returnCode = 1;
                         LOGGER.info("Go Main");
                         break;
-                    } else { }
+                    }
+                    else if(mode == 1){ }
+
 
                     //main select 만 구현되어있음. 추후 수정
+                    // mode = 0 튜토리얼 mode = 2 시나리오
 
 
 

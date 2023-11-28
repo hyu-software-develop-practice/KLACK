@@ -88,8 +88,6 @@ public class ModeScreen extends Screen {
             this.mode = 2;
         else if (this.mode == 2)
             this.mode = 3;
-        else if (this.mode == 3)
-            this.mode = 4;
         else
             this.mode = 0;
     }
@@ -98,9 +96,7 @@ public class ModeScreen extends Screen {
      * Shifts the focus to the previous menu item.
      */
     private void previousMenuItem() {
-        if (this.mode == 0)
-            this.mode = 4;
-        else if (this.mode == 1)
+        if (this.mode == 1)
             this.mode = 0;
         else if (this.mode == 2)
             this.mode = 1;
