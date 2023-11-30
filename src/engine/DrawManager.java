@@ -1080,7 +1080,7 @@ public final class DrawManager {
 	public void modeSelect(final Screen screen, final int option) {
 		String SelectString = "Select mode with W + S, confirm with SPACE.";
 		String TutorialString = "T U T O R I A L   M O D E";
-		String PlayString = "P L A Y   M O D E";
+		String PlayString = "B A S I C   M O D E";
 		String SinarioString = "S I N A R I O  M O D E";
 		String MainString = "M A I N";
 
