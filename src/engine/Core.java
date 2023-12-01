@@ -609,7 +609,7 @@ public final class Core {
                                     50, 50);
                         }
                         else {
-                            gameState_2P = new GameState_2P(1,
+                            gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
                                     gameState_2P.getScore_1P(),
                                     gameState_2P.getScore_2P(),
                                     gameState_2P.getCoin(),
