@@ -616,25 +616,25 @@ public final class DrawManager {
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
 	public void drawSoundButton1(GameScreen gamescreen){
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.fillOval(375,425,55,45);
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawRect(315,427,54,23);
 	}
 
 	public void drawSoundButton2(GameScreen_2P gamescreen_2P){
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.fillOval(375,425,55,45);
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawRect(315,427,54,23);
 	}
 
 	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.drawString(statusText, 379, 455);
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawString(statusText, 318, 447);
 	}
 
 	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.drawString(statusText, 379, 455);
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawString(statusText, 318, 447);
 	}
 
 
@@ -668,9 +668,9 @@ public final class DrawManager {
 
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(Color.GREEN);
 		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, 30, 450);
+		backBufferGraphics.drawString(timeString, screen.getWidth() - 50, 60);
 	}
 
 	private String formatTime(long elapsedTime) {
@@ -715,20 +715,20 @@ public final class DrawManager {
 
 	public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(Color.GREEN);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
+		backBufferGraphics.drawString(text, 10, 450);
 	}
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(Color.GREEN);
 		String text = "Remaining Bullets_1p: " + String.format("%02d", BulletsCount);
 		backBufferGraphics.drawString(text, screen.getWidth() - 200, 60);
 	}
 	public void BulletsCount_2p(final Screen screen, final int BulletsCount_2p) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(Color.GREEN);
 		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
 		backBufferGraphics.drawString(text, screen.getWidth() - 200, 80);
 	}
@@ -818,18 +818,18 @@ public final class DrawManager {
 		g2d.drawString(live, textX, textY);
 	}
 
-	public void drawitemcircle(final Screen screen, final int itemcount1, final int itemcount2) {
+	public void drawitem(final Screen screen, final int itemcount1, final int itemcount2) {
 		Graphics2D g2d = (Graphics2D) backBufferGraphics;
 		// this.drawEntity(SpriteType.Bullet,350,450,5,5); <<-- 이런식으로 아이콘 추가
 		float strokeWidth = 3.0f; // 원의 선굵기
 		BasicStroke stroke = new BasicStroke(strokeWidth); // 원의 선굵기
 		g2d.setStroke(stroke); // 원의 선굵기
-		g2d.setColor(Color.white); // 원의 선색깔
-		g2d.fillOval(375, 310, 55, 45); // 원 위치
-		g2d.fillOval(375, 365, 55, 45); // 원 위치
-		g2d.setColor(Color.black); // 원의 선색깔
-		g2d.drawString(Integer.toString(itemcount1), 395, 340); // 글자 추가
-		g2d.drawString(Integer.toString(itemcount2), 395, 395); // 글자 추가
+		g2d.setColor(Color.green); // 원의 선색깔
+		g2d.drawOval(385, 385, 25, 25); // 원 위치
+		g2d.drawOval(385, 425, 25, 25); // 원 위치
+		g2d.setColor(Color.green); // 원의 선색깔
+		g2d.drawString(Integer.toString(itemcount1), 390, 403); // 글자 추가
+		g2d.drawString(Integer.toString(itemcount2), 390, 443); // 글자 추가
 	}
 
 	public void drawBossLivesbar(final Screen screen, int boss_lives) {
@@ -2895,13 +2895,13 @@ if (option == 35)
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.WHITE);
 			String text = String.format("%d", ComboCount) + " Combo";
-			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+			backBufferGraphics.drawString(text, screen.getWidth()/2-15, 400);
 		}
 		else{
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.red);
 			String text = "Miss";
-			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+			backBufferGraphics.drawString(text, screen.getWidth()/2-10, 400);
 		}
 	}
 }
