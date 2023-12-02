@@ -663,30 +663,130 @@ public final class Core {
                         BulletsRemaining_2p = gameState_2P.getBulletsRemaining_2p();
 
                         if (gameState_2P.getLevel() == NUM_LEVELS && checkInfinity) {
-                            gameState_2P = new GameState_2P(1,
-                                    gameState_2P.getScore_1P(),
-                                    gameState_2P.getScore_2P(),
-                                    gameState_2P.getCoin(),
-                                    gameState_2P.getLivesRemaining_1P(),
-                                    gameState_2P.getLivesRemaining_2P(),
-                                    gameState_2P.getBulletsShot_1P(),
-                                    gameState_2P.getBulletsShot_2P(),
-                                    gameState_2P.getShipsDestroyed(),
-                                    gameState_2P.getHardCore(),
-                                    50, 50);
-                        }
-                        else {
-                            gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
-                                    gameState_2P.getScore_1P(),
-                                    gameState_2P.getScore_2P(),
-                                    gameState_2P.getCoin(),
-                                    gameState_2P.getLivesRemaining_1P(),
-                                    gameState_2P.getLivesRemaining_2P(),
-                                    gameState_2P.getBulletsShot_1P(),
-                                    gameState_2P.getBulletsShot_2P(),
-                                    gameState_2P.getShipsDestroyed(),
-                                    gameState_2P.getHardCore(),
-                                    50, 50);
+                            if (Roop_Check == 0) {
+                                gameState_2P = new GameState_2P(1,
+                                        gameState_2P.getScore_1P(),
+                                        gameState_2P.getScore_2P(),
+                                        gameState_2P.getCoin(),
+                                        gameState_2P.getLivesRemaining_1P(),
+                                        gameState_2P.getLivesRemaining_2P(),
+                                        gameState_2P.getBulletsShot_1P(),
+                                        gameState_2P.getBulletsShot_2P(),
+                                        gameState_2P.getShipsDestroyed(),
+                                        gameState_2P.getHardCore(),
+                                        50, 50);
+                            }
+                            if (Roop_Check == 1){
+                                if (gameState.getLivesRemaining() > 2 &&  gameState_2P.getLivesRemaining_2P() > 2){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            2,
+                                            2,
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                else if(gameState.getLivesRemaining() > 2 &&  gameState_2P.getLivesRemaining_2P() <= 2){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            2,
+                                            gameState_2P.getLivesRemaining_2P(),
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                else if(gameState.getLivesRemaining() <= 2 &&  gameState_2P.getLivesRemaining_2P() > 2){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            gameState_2P.getLivesRemaining_1P(),
+                                            2,
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                else if(gameState.getLivesRemaining() <= 2 &&  gameState_2P.getLivesRemaining_2P()<=2){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            gameState_2P.getLivesRemaining_1P(),
+                                            gameState_2P.getLivesRemaining_2P(),
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+
+                                MAX_LIVES = 2;
+                            }
+                            else if (Roop_Check >= 2) {
+                                if (gameState.getLivesRemaining() > 1 &&  gameState_2P.getLivesRemaining_2P() > 1){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            1,
+                                            1,
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                else if(gameState.getLivesRemaining() > 1 &&  gameState_2P.getLivesRemaining_2P() <= 1){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            1,
+                                            gameState_2P.getLivesRemaining_2P(),
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                else if(gameState.getLivesRemaining() <= 1 &&  gameState_2P.getLivesRemaining_2P() > 1){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            gameState_2P.getLivesRemaining_1P(),
+                                            1,
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                else if(gameState.getLivesRemaining() <= 1 &&  gameState_2P.getLivesRemaining_2P()<=1){
+                                    gameState_2P = new GameState_2P(1,
+                                            gameState_2P.getScore_1P(),
+                                            gameState_2P.getScore_2P(),
+                                            gameState_2P.getCoin(),
+                                            gameState_2P.getLivesRemaining_1P(),
+                                            gameState_2P.getLivesRemaining_1P(),
+                                            gameState_2P.getBulletsShot_1P(),
+                                            gameState_2P.getBulletsShot_2P(),
+                                            gameState_2P.getShipsDestroyed(),
+                                            gameState_2P.getHardCore(),
+                                            50, 50);
+                                }
+                                MAX_LIVES = 1;
+                            }
                         }
 
 
