@@ -615,6 +615,14 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
+
+	public void drawBonus(final Screen screen){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.cyan);
+		backBufferGraphics.drawString("Bonus level", 150, 28);
+	}
+
+
 	public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setColor(Color.GREEN);
 		backBufferGraphics.drawRect(315,427,54,23);
@@ -1537,15 +1545,15 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
 		String[] Stage = new String[stages];
 		backBufferGraphics.setFont(fontBig);
-		for (int i = 0; i < stages; i++) {
-			Stage[i] = String.valueOf(i+1);
+		for (int i = 1; i < stages; i++) {
+			Stage[i] = String.valueOf(i);
 			if (option == i)
 				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			else
 				backBufferGraphics.setColor(blinkingColor("WHITE"));
 			backBufferGraphics.drawString(Stage[i], screen.getWidth() / 2
-					- (screen.getWidth()/10) * (2-(i%5)),
-					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*((i/5)-1)));
+					- (screen.getWidth()/10) * (2-((i-1)%5)),
+					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*(((i-1)/5)-1)));
 		}
 	}
 

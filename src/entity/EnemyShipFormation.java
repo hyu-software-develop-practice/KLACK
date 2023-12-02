@@ -189,6 +189,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					Color C_color = new Color(r2, 125, 255);
 					Color D_color = new Color(255, 255, b);
 					switch (level) {
+
 						case 1: // nA, nB
 							if (i / (float) this.nShipsHigh < PROPORTION_B) {
 								spriteType = SpriteType.ESnA_1;
@@ -289,6 +290,12 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 								enemyColor = D_color;
 							}
 							break;
+
+						case 0 : // bonus level
+							spriteType = SpriteType.ESm2A_1;
+							enemyColor = A_color;
+							break;
+
 						default:
 							spriteType = SpriteType.ESnA_1;
 							enemyColor = A_color;

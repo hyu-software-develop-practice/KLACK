@@ -72,6 +72,11 @@ public final class Core {
     private static int previousStage;
 
     /**
+     * Difficulty settings for bonus level.
+     */
+    private static GameSettings SETTINGS_LEVEL_0 = new GameSettings(10, 2, 100, 100000, 1, 1, 1);
+
+    /**
      * Difficulty settings for level 1.
      */
     private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1, 1, 1);
@@ -249,6 +254,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        gameSettings.add(SETTINGS_LEVEL_0);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -276,7 +282,7 @@ public final class Core {
                     // Game & score.
                     do {
                         currentScreen = new GameScreen(gameState,
-                                gameSettings.get(gameState.getLevel() - 1),
+                                gameSettings.get(gameState.getLevel()-1),
                                 enhanceManager, itemManager,
                                 width, height, FPS);
                         previousHP = gameState.getLivesRemaining();
@@ -290,8 +296,9 @@ public final class Core {
                         BulletsRemaining = gameState.getBulletsRemaining();
                         currentHP = gameState.getLivesRemaining();
                         if (previousHP == currentHP && !isBonusStage){
+                            System.out.println("보너스");
                             previousStage = gameState.getLevel();
-                            gameState = new GameState(4,   //bonus stage로 변경 예정
+                            gameState = new GameState(1,   //bonus stage로 변경 예정
                                     gameState.getScore(),
                                     gameState.getCoin(),
                                     gameState.getLivesRemaining(),
@@ -569,6 +576,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        gameSettings.add(SETTINGS_LEVEL_0);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
