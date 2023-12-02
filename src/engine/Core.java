@@ -54,6 +54,22 @@ public final class Core {
      * mode of the game
      */
     private static int mode = 1;
+    /**
+     * previous stage remaining lives
+     */
+    private static double previousHP;
+    /**
+     * current stage reaming lives
+     */
+    private static double currentHP;
+    /**
+     * check if it is BonusStage
+     */
+    private static boolean isBonusStage = false;
+    /**
+     * stage before bonus stage
+     */
+    private static int previousStage;
 
     /**
      * Difficulty settings for level 1.
@@ -263,27 +279,50 @@ public final class Core {
                                 gameSettings.get(gameState.getLevel() - 1),
                                 enhanceManager, itemManager,
                                 width, height, FPS);
+                        previousHP = gameState.getLivesRemaining();
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
+
                         LOGGER.info("Closing game screen.");
 
                         gameState = ((GameScreen) currentScreen).getGameState();
                         BulletsRemaining = gameState.getBulletsRemaining();
-
-                        gameState = new GameState(gameState.getLevel() + 1,
-                                gameState.getScore(),
-                                gameState.getCoin(),
-                                gameState.getLivesRemaining(),
-                                gameState.getBulletsShot(),
-                                gameState.getShipsDestroyed(),
-                                gameState.getHardCore(), 
-                                gameState.getShipColor(), 
-                                gameState.getNowSkinString(), 
-                                gameState.getOwnedSkins(), 
-                                gameState.getEquippedSkins(),
-                                99);
-
+                        currentHP = gameState.getLivesRemaining();
+                        if (previousHP == currentHP && !isBonusStage){
+                            previousStage = gameState.getLevel();
+                            gameState = new GameState(4,   //bonus stage로 변경 예정
+                                    gameState.getScore(),
+                                    gameState.getCoin(),
+                                    gameState.getLivesRemaining(),
+                                    gameState.getBulletsShot(),
+                                    gameState.getShipsDestroyed(),
+                                    gameState.getHardCore(),
+                                    gameState.getShipColor(),
+                                    gameState.getNowSkinString(),
+                                    gameState.getOwnedSkins(),
+                                    gameState.getEquippedSkins(),
+                                    99);
+                            isBonusStage = true;
+                        }
+                        else {
+                            int nextStage = gameState.getLevel() + 1;
+                            if (isBonusStage)
+                                nextStage = previousStage + 1;
+                            gameState = new GameState(nextStage,
+                                    gameState.getScore(),
+                                    gameState.getCoin(),
+                                    gameState.getLivesRemaining(),
+                                    gameState.getBulletsShot(),
+                                    gameState.getShipsDestroyed(),
+                                    gameState.getHardCore(),
+                                    gameState.getShipColor(),
+                                    gameState.getNowSkinString(),
+                                    gameState.getOwnedSkins(),
+                                    gameState.getEquippedSkins(),
+                                    99);
+                            isBonusStage = false;
+                        }
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
