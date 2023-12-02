@@ -36,7 +36,7 @@ public final class Core {
     /**
      * Max lives.
      */
-    private static final int MAX_LIVES = 3;
+    private static int MAX_LIVES = 3;
     /**
      * Levels between extra life.
      */
@@ -123,6 +123,7 @@ public final class Core {
     private static int BulletsRemaining_1p;
     private static int BulletsRemaining_2p;
 
+    private static int Roop_Check = 0;
 
 
     /**
@@ -248,6 +249,7 @@ public final class Core {
                                     gameSettings.get(gameState.getLevel() - 1),
                                     enhanceManager, itemManager,
                                     width, height, FPS);
+                            Roop_Check = Roop_Check + 1;
                         }
 
                         else {
@@ -266,18 +268,81 @@ public final class Core {
                         BulletsRemaining = gameState.getBulletsRemaining();
 
                         if (gameState.getLevel() == NUM_LEVELS && checkInfinity) {
-                            gameState = new GameState(1,
-                                    gameState.getScore(),
-                                    gameState.getCoin(),
-                                    gameState.getLivesRemaining(),
-                                    gameState.getBulletsShot(),
-                                    gameState.getShipsDestroyed(),
-                                    gameState.getHardCore(),
-                                    gameState.getShipColor(),
-                                    gameState.getNowSkinString(),
-                                    gameState.getOwnedSkins(),
-                                    gameState.getEquippedSkins(),
-                                    99);
+                            if (Roop_Check == 0) {
+                                gameState = new GameState(1,
+                                        gameState.getScore(),
+                                        gameState.getCoin(),
+                                        gameState.getLivesRemaining(),
+                                        gameState.getBulletsShot(),
+                                        gameState.getShipsDestroyed(),
+                                        gameState.getHardCore(),
+                                        gameState.getShipColor(),
+                                        gameState.getNowSkinString(),
+                                        gameState.getOwnedSkins(),
+                                        gameState.getEquippedSkins(),
+                                        99);
+                            }
+                            if (Roop_Check == 1){
+                                if (gameState.getLivesRemaining() > 2){
+                                    gameState = new GameState(1,
+                                            gameState.getScore(),
+                                            gameState.getCoin(),
+                                            2,
+                                            gameState.getBulletsShot(),
+                                            gameState.getShipsDestroyed(),
+                                            gameState.getHardCore(),
+                                            gameState.getShipColor(),
+                                            gameState.getNowSkinString(),
+                                            gameState.getOwnedSkins(),
+                                            gameState.getEquippedSkins(),
+                                            99);
+                                }
+                                else{
+                                    gameState = new GameState(1,
+                                            gameState.getScore(),
+                                            gameState.getCoin(),
+                                            gameState.getLivesRemaining(),
+                                            gameState.getBulletsShot(),
+                                            gameState.getShipsDestroyed(),
+                                            gameState.getHardCore(),
+                                            gameState.getShipColor(),
+                                            gameState.getNowSkinString(),
+                                            gameState.getOwnedSkins(),
+                                            gameState.getEquippedSkins(),
+                                            99);
+                                }
+                                MAX_LIVES = 2;
+                            } else if (Roop_Check >= 2) {
+                                if (gameState.getLivesRemaining() > 1){
+                                    gameState = new GameState(1,
+                                            gameState.getScore(),
+                                            gameState.getCoin(),
+                                            1,
+                                            gameState.getBulletsShot(),
+                                            gameState.getShipsDestroyed(),
+                                            gameState.getHardCore(),
+                                            gameState.getShipColor(),
+                                                gameState.getNowSkinString(),
+                                            gameState.getOwnedSkins(),
+                                            gameState.getEquippedSkins(),
+                                            99);
+                                }
+                                else{
+                                    gameState = new GameState(1,
+                                            gameState.getScore(),
+                                            gameState.getCoin(),
+                                            gameState.getLivesRemaining(),
+                                            gameState.getBulletsShot(),
+                                            gameState.getShipsDestroyed(),
+                                            gameState.getHardCore(),
+                                            gameState.getShipColor(),
+                                            gameState.getNowSkinString(),
+                                            gameState.getOwnedSkins(),
+                                            gameState.getEquippedSkins(),
+                                            99);
+                                }
+                                MAX_LIVES = 1;
+                            }
                         }
                         else {
                             gameState = new GameState(gameState.getLevel() + 1,
@@ -292,6 +357,7 @@ public final class Core {
                                     gameState.getOwnedSkins(),
                                     gameState.getEquippedSkins(),
                                     99);
+
                         }
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -560,6 +626,7 @@ public final class Core {
                         break;
                     }
 
+
                     if (stage == 9)
                         checkInfinity = true;
                     else
@@ -609,7 +676,7 @@ public final class Core {
                                     50, 50);
                         }
                         else {
-                            gameState_2P = new GameState_2P(1,
+                            gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
                                     gameState_2P.getScore_1P(),
                                     gameState_2P.getScore_2P(),
                                     gameState_2P.getCoin(),
