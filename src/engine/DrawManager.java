@@ -724,13 +724,13 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.GREEN);
 		String text = "Remaining Bullets_1p: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, screen.getWidth() - 200, 60);
+		backBufferGraphics.drawString(text, 10, 430);
 	}
 	public void BulletsCount_2p(final Screen screen, final int BulletsCount_2p) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.GREEN);
 		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
-		backBufferGraphics.drawString(text, screen.getWidth() - 200, 80);
+		backBufferGraphics.drawString(text, 10, 450);
 	}
 
 	/**
