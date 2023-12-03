@@ -314,7 +314,7 @@ public final class Core {
                         if (gameState.getLevel() == 8)
                             gameOver = true;
 
-                        if (previousHP == currentHP && !isBonusStage){
+                        if (previousHP == currentHP && !isBonusStage && (gameState.getLevel() == 3 || gameState.getLevel() == 7)){
                             System.out.println("보너스");
                             previousStage = gameState.getLevel();
                             gameState = new GameState(9,   //bonus stage로 변경
@@ -653,7 +653,7 @@ public final class Core {
                         if (gameState_2P.getLevel() == 8)
                             gameOver = true;
 
-                        if (previousHP == currentHP && previousHP2 == currentHP2 && !isBonusStage) {
+                        if (previousHP == currentHP && previousHP2 == currentHP2 && !isBonusStage && (gameState_2P.getLevel() == 3 || gameState_2P.getLevel() == 7)) {
                             previousStage = gameState_2P.getLevel();
 
                             gameState_2P = new GameState_2P(9,  //bonus stage로 변경
