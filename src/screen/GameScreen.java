@@ -259,7 +259,6 @@ public class GameScreen extends Screen {
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 
-//		bgm.InGame_bgm_stop();
 		bgm.InGame_bgm_play();
 
 
@@ -648,7 +647,7 @@ public class GameScreen extends Screen {
 
 
 
-		}
+	}
 
 
 	/**

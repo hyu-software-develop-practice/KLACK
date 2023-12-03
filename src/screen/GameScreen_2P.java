@@ -449,11 +449,12 @@ public class GameScreen_2P extends Screen {
             cleanBulletsY_1P();
             cleanBulletsY_2P();
             cleanItems();
-            draw();
         }
+        draw();
         if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
             endStageAllEat();
             bgm.enemyShipSpecialbgm_stop();
+            bgm.InGame_bgm_stop();
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
             timer.stop();
@@ -648,7 +649,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         if (level == 9) { drawManager.drawBonus(this);}
         else drawManager.drawLevel(this, this.level);
-        if (inputManager.isKeyDown(KeyEvent.VK_C)) {
+        if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
             isSoundOn = !isSoundOn;
             if (isSoundOn) {
                 bgm.InGame_bgm_play();
@@ -666,7 +667,6 @@ public class GameScreen_2P extends Screen {
         drawManager.changeGhostColor_2p(this.levelFinished, this.lives_1p, this.lives_2p);
         drawManager.drawGhost_2p(this.levelFinished, this.lives_1p, this.lives_2p);
         this.ship_1P.gameEndShipMotion(this.levelFinished, this.lives_1p);
-
         this.ship_2P.gameEndShipMotion(this.levelFinished, this.lives_2p);
 
 
@@ -691,7 +691,7 @@ public class GameScreen_2P extends Screen {
         if (this.pause) {
             drawManager.drawPaused(this);
             drawManager.drawSoundButton2(this);
-            if (inputManager.isKeyDown(KeyEvent.VK_C)) {
+            if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
                 isSoundOn = !isSoundOn;
                 if (isSoundOn) {
                     bgm.InGame_bgm_play();
