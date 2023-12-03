@@ -208,6 +208,8 @@ public class GameScreen extends Screen {
 
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
+		if (getGameState().getLevel() == 9) //when stage is bonus
+			this.laserActivate = false;
 		if (gameSettings.getDifficulty() > 1) {
 			LASER_INTERVAL = 3000;
 			LASER_VARIANCE = 500;
@@ -579,7 +581,8 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-		drawManager.drawLevel(this, this.level);
+		if (level == 9) { drawManager.drawBonus(this);}
+		else drawManager.drawLevel(this, this.level);
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
 			isSoundOn = !isSoundOn;
 			if (isSoundOn) {
