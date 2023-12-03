@@ -1829,16 +1829,23 @@ public final class DrawManager {
 			final int number, final boolean bonusLife) {
 		backBufferGraphics.setColor(Color.GREEN);
 
-		if (number >= 4)
-			if (!bonusLife) {
-				pumpingLevel(screen, "Level " + level,screen.getHeight() / 2
+		if (number >= 4) {
+			if (level == 9) {
+				pumpingLevel(screen, "Bonus Stage", screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
-			} else {
-				drawCenteredBigString(screen, "Level " + level
-						+ " - Bonus life!",
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3);
 			}
+			else {
+				if (!bonusLife) {
+					pumpingLevel(screen, "Level " + level, screen.getHeight() / 2
+							+ fontBigMetrics.getHeight() / 3);
+				} else {
+					drawCenteredBigString(screen, "Level " + level
+									+ " - Bonus life!",
+							screen.getHeight() / 2
+									+ fontBigMetrics.getHeight() / 3);
+				}
+			}
+		}
 		else if (number != 0) {
 			if (isFirst){
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
