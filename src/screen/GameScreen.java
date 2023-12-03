@@ -208,6 +208,8 @@ public class GameScreen extends Screen {
 
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
+		if (getGameState().getLevel() == 9) //when stage is bonus
+			this.laserActivate = false;
 		if (gameSettings.getDifficulty() > 1) {
 			LASER_INTERVAL = 3000;
 			LASER_VARIANCE = 500;

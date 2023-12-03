@@ -259,6 +259,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_9.setDifficulty(1);
 
 
                         gameSettings.add(SETTINGS_LEVEL_1);
