@@ -1057,6 +1057,7 @@ public final class DrawManager {
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "P L A Y";
 		String twoplayString = "2 P  P L A Y";
+		String tutorialString = "T U T O R I A L";
 		String highScoresString = "H I G H  S C O R E S";
 		String onlineString = "O N L I N E";
 		String exitString = "E X I T";
