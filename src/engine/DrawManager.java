@@ -1022,6 +1022,22 @@ public final class DrawManager {
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
 	}
 
+
+	public void drawTutorialGuideline(final Screen screen,
+									   final int screenWidth) {
+		String guide = "Move: A or D\nShoot: SpaceBar";
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.YELLOW);
+
+		int textWidth = backBufferGraphics.getFontMetrics().stringWidth(guide);
+		int centerX = screenWidth / 2;
+		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 440);
+		backBufferGraphics.drawOval(centerX, 460, 26, 26);
+		guide = "Special Enemy will briefly appears.";
+		backBufferGraphics.drawString(guide, centerX, 90);
+		backBufferGraphics.drawLine(0, 60, screenWidth, 60);
+	}
+
 	/**
 	 * Draws main menu.
 	 *
