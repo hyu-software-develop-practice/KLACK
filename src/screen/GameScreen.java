@@ -580,8 +580,8 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-		if (level == 1) { drawManager.drawBonus(this);}
-		else drawManager.drawLevel(this, this.level-1);
+		if (level == 9) { drawManager.drawBonus(this);}
+		else drawManager.drawLevel(this, this.level);
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
 			isSoundOn = !isSoundOn;
 			if (isSoundOn) {

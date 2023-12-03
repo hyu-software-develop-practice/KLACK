@@ -1545,15 +1545,15 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
 		String[] Stage = new String[stages];
 		backBufferGraphics.setFont(fontBig);
-		for (int i = 1; i < stages; i++) {
-			Stage[i] = String.valueOf(i);
+		for (int i = 0; i < stages ; i++) {
+				Stage[i] = String.valueOf(i+1);
 			if (option == i)
 				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			else
 				backBufferGraphics.setColor(blinkingColor("WHITE"));
 			backBufferGraphics.drawString(Stage[i], screen.getWidth() / 2
-					- (screen.getWidth()/10) * (2-((i-1)%5)),
-					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*(((i-1)/5)-1)));
+					- (screen.getWidth()/10) * (2-(i%5)),
+					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*((i/5)-1)));
 		}
 	}
 

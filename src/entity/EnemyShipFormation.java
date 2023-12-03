@@ -291,8 +291,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 							}
 							break;
 
-						case 0 : // bonus level
-							spriteType = SpriteType.ESm2A_1;
+						case 9 : // bonus level
+							spriteType = SpriteType.ESnA_1;
 							enemyColor = A_color;
 							break;
 

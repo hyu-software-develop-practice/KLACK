@@ -70,11 +70,12 @@ public final class Core {
      * stage before bonus stage
      */
     private static int previousStage;
-
     /**
-     * Difficulty settings for bonus level.
+     * after stage8 --> gameover
      */
-    private static GameSettings SETTINGS_LEVEL_0 = new GameSettings(10, 2, 100, 100000, 1, 1, 1);
+    private static boolean gameOver = false;
+
+
 
     /**
      * Difficulty settings for level 1.
@@ -111,6 +112,10 @@ public final class Core {
      */
     private static GameSettings SETTINGS_LEVEL_8 =
             new GameSettings(10, 1000,1, 1, 1);
+    /**
+     * Difficulty settings for bonus level.
+     */
+    private static GameSettings SETTINGS_LEVEL_9 = new GameSettings(10, 2, 100, 100000, 1, 1, 1);
 
 
     /**
@@ -254,7 +259,8 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
-                        gameSettings.add(SETTINGS_LEVEL_0);
+
+
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -263,11 +269,13 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
+                        gameSettings.add(SETTINGS_LEVEL_9);
+
 
                     }
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
-                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length-1 , 1);
                     stage = frame.setScreen(currentScreen);
                     if (stage == 0) {
                         returnCode = 2;
@@ -281,10 +289,13 @@ public final class Core {
 
                     // Game & score.
                     do {
+
                         currentScreen = new GameScreen(gameState,
                                 gameSettings.get(gameState.getLevel()-1),
                                 enhanceManager, itemManager,
                                 width, height, FPS);
+                        if (gameState.getLevel() == 8)
+                            gameOver = true;
                         previousHP = gameState.getLivesRemaining();
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
@@ -295,10 +306,13 @@ public final class Core {
                         gameState = ((GameScreen) currentScreen).getGameState();
                         BulletsRemaining = gameState.getBulletsRemaining();
                         currentHP = gameState.getLivesRemaining();
+                        if (gameState.getLevel() == 8)
+                            gameOver = true;
+
                         if (previousHP == currentHP && !isBonusStage){
                             System.out.println("보너스");
                             previousStage = gameState.getLevel();
-                            gameState = new GameState(1,   //bonus stage로 변경 예정
+                            gameState = new GameState(9,   //bonus stage로 변경
                                     gameState.getScore(),
                                     gameState.getCoin(),
                                     gameState.getLivesRemaining(),
@@ -314,8 +328,10 @@ public final class Core {
                         }
                         else {
                             int nextStage = gameState.getLevel() + 1;
-                            if (isBonusStage)
+                            if (isBonusStage) {
                                 nextStage = previousStage + 1;
+                                isBonusStage = false;
+                            }
                             gameState = new GameState(nextStage,
                                     gameState.getScore(),
                                     gameState.getCoin(),
@@ -328,7 +344,8 @@ public final class Core {
                                     gameState.getOwnedSkins(),
                                     gameState.getEquippedSkins(),
                                     99);
-                            isBonusStage = false;
+
+
                         }
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
@@ -380,7 +397,7 @@ public final class Core {
 						boxOpen = false;
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
+							&& (gameState.getLevel() <= NUM_LEVELS || gameState.getLevel() == 9) && BulletsRemaining > 0 && !gameOver);
 
 
                     // Recovery | Default State & Exit
@@ -576,7 +593,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
-                        gameSettings.add(SETTINGS_LEVEL_0);
+
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -585,10 +602,12 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
+                        gameSettings.add(SETTINGS_LEVEL_9);
+
                     }
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
-                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length - 1, 1);
                     stage = frame.setScreen(currentScreen);
 
                     if (stage == 0) {

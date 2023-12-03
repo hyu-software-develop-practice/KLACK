@@ -36,7 +36,7 @@ public class StageSelectScreen extends Screen {
         super(width, height, fps);
 
         // Defaults to Stage 1 (index = 0).
-        Stage = stage;
+        Stage = stage-1;
         TotalStage = Totalstage;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
@@ -105,12 +105,13 @@ public class StageSelectScreen extends Screen {
      */
     private void RightMenuItem(int i) {
         if (this.Stage == TotalStage-1)
-            this.Stage = 1;
+            this.Stage = 0;
+
         else
             this.Stage = i+1;
     }
     private void LeftMenuItem(int i) {
-        if (this.Stage == 1)
+        if (this.Stage == 0)
             this.Stage = TotalStage-1;
         else
             this.Stage = i-1;
