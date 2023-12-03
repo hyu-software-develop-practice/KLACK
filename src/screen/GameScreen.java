@@ -257,7 +257,6 @@ public class GameScreen extends Screen {
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 
-//		bgm.InGame_bgm_stop();
 		bgm.InGame_bgm_play();
 
 
@@ -426,8 +425,8 @@ public class GameScreen extends Screen {
 			cleanBullets();
 			cleanBulletsY();
 			cleanItems();
-			draw();
 		}
+		draw();
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
 			endStageAllEat();
 			bgm.enemyShipSpecialbgm_stop();
@@ -546,8 +545,8 @@ public class GameScreen extends Screen {
 		drawManager.drawScore(this, this.score);
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawCoin(this, this.coin, 0);
-		drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
 		drawManager.drawTutorialGuideline(this, width);
+		drawManager.drawitem(this,itemManager.getShieldCount(),itemManager.getBombCount());
 		isboss = gameSettings.checkIsBoss();
 
 		// Check if the 1 key is pressed
@@ -582,8 +581,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
-		drawManager.drawSoundButton1(this);
-		if (inputManager.isKeyDown(KeyEvent.VK_C)) {
+		if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
 			isSoundOn = !isSoundOn;
 			if (isSoundOn) {
 				bgm.InGame_bgm_play();
@@ -594,7 +592,7 @@ public class GameScreen extends Screen {
 
 			}
 		}
-		drawManager.drawSoundStatus1(this, isSoundOn);
+
 
 		drawManager.drawTimer(this, timer.getElapsedTime());
 		if(Miss==1) {
@@ -628,13 +626,26 @@ public class GameScreen extends Screen {
 		// If Game has been paused
 		if (this.pause) {
 			drawManager.drawPaused(this);
+			drawManager.drawSoundButton1(this);
+			if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
+				isSoundOn = !isSoundOn;
+				if (isSoundOn) {
+					bgm.InGame_bgm_play();
+				} else {
+					bgm.InGame_bgm_stop();
+					bgm.enemyShipSpecialbgm_stop();
+					soundEffect.SoundEffect_stop();
+
+				}
+			}
+			drawManager.drawSoundStatus1(this, isSoundOn);
 		}
 
 		drawManager.completeDrawing(this);
 
 
 
-		}
+	}
 
 
 	/**
