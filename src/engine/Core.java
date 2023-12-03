@@ -58,10 +58,14 @@ public final class Core {
      * previous stage remaining lives
      */
     private static double previousHP;
+
+    private static double previousHP2;
     /**
      * current stage reaming lives
      */
     private static double currentHP;
+
+    private static double currentHP2;
     /**
      * check if it is BonusStage
      */
@@ -594,6 +598,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_9.setDifficulty(1);
 
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
@@ -627,6 +632,12 @@ public final class Core {
                                 gameSettings.get(gameState_2P.getLevel() - 1),
                                 enhanceManager, itemManager,
                                 width, height, FPS);
+                        if (gameState_2P.getLevel() == 8)
+                            gameOver = true;
+
+                        previousHP = gameState_2P.getLivesRemaining_1P();
+                        previousHP2 = gameState_2P.getLivesRemaining_2P();
+
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -636,17 +647,51 @@ public final class Core {
                         BulletsRemaining_1p = gameState_2P.getBulletsRemaining_1p();
                         BulletsRemaining_2p = gameState_2P.getBulletsRemaining_2p();
 
-                        gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
-                                gameState_2P.getScore_1P(),
-                                gameState_2P.getScore_2P(),
-                                gameState_2P.getCoin(),
-                                gameState_2P.getLivesRemaining_1P(),
-                                gameState_2P.getLivesRemaining_2P(),
-                                gameState_2P.getBulletsShot_1P(),
-                                gameState_2P.getBulletsShot_2P(),
-                                gameState_2P.getShipsDestroyed(),
-                                gameState_2P.getHardCore(),
-                                50, 50);
+                        currentHP = gameState_2P.getLivesRemaining_1P();
+                        currentHP2 = gameState_2P.getLivesRemaining_2P();
+
+                        if (gameState_2P.getLevel() == 8)
+                            gameOver = true;
+
+                        if (previousHP == currentHP && previousHP2 == currentHP2 && !isBonusStage) {
+                            previousStage = gameState_2P.getLevel();
+
+                            gameState_2P = new GameState_2P(9,  //bonus stage로 변경
+                                    gameState_2P.getScore_1P(),
+                                    gameState_2P.getScore_2P(),
+                                    gameState_2P.getCoin(),
+                                    gameState_2P.getLivesRemaining_1P(),
+                                    gameState_2P.getLivesRemaining_2P(),
+                                    gameState_2P.getBulletsShot_1P(),
+                                    gameState_2P.getBulletsShot_2P(),
+                                    gameState_2P.getShipsDestroyed(),
+                                    gameState_2P.getHardCore(),
+                                    50, 50);
+
+                            isBonusStage = true;
+
+                        } else {
+                            int nextStage = gameState_2P.getLevel() + 1;
+                            if (isBonusStage) {
+                                nextStage = previousStage + 1;
+                                isBonusStage = false;
+                            }
+
+                            gameState_2P = new GameState_2P(nextStage,
+                                    gameState_2P.getScore_1P(),
+                                    gameState_2P.getScore_2P(),
+                                    gameState_2P.getCoin(),
+                                    gameState_2P.getLivesRemaining_1P(),
+                                    gameState_2P.getLivesRemaining_2P(),
+                                    gameState_2P.getBulletsShot_1P(),
+                                    gameState_2P.getBulletsShot_2P(),
+                                    gameState_2P.getShipsDestroyed(),
+                                    gameState_2P.getHardCore(),
+                                    50, 50);
+
+
+                        }
+
 
                         // SubMenu | Item Store & Enhancement & Continue & Skin Store
                         do{
@@ -689,9 +734,9 @@ public final class Core {
                         } while (currentScreen.returnCode != 2);
                         boxOpen = false;
                         isInitMenuScreen = true;
-                    } while (gameState_2P.getLevel() <= NUM_LEVELS
+                    } while ((gameState_2P.getLevel() <= NUM_LEVELS || gameState_2P.getLevel() == 9)
                             && ((gameState_2P.getLivesRemaining_1P() > 0 && BulletsRemaining_1p > 0)
-                            || (gameState_2P.getLivesRemaining_2P() > 0 && BulletsRemaining_2p > 0)));
+                            || (gameState_2P.getLivesRemaining_2P() > 0 && BulletsRemaining_2p > 0)) && !gameOver);
 
 
                     // Recovery | Default State & Exit
