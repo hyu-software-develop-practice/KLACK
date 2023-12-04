@@ -1104,7 +1104,7 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
-                        case 888:
+                default:
                     break;
 
             }
