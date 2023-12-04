@@ -59,7 +59,7 @@ public final class Core {
     /**
      * Difficulty settings for tutorial level.
      */
-    private static GameSettings SETTINGS_LEVEL_0 = new GameSettings(5, 2, 60, 100000000, 0, 1, 10);
+    private static GameSettings SETTINGS_LEVEL_0 = new GameSettings();
     /**
      * Difficulty settings for level 1.
      */
