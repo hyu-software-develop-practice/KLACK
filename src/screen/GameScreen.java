@@ -545,7 +545,7 @@ public class GameScreen extends Screen {
 		drawManager.drawScore(this, this.score);
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawCoin(this, this.coin, 0);
-		drawManager.drawTutorialGuideline(this, width);
+		drawManager.drawTutorialGuideline(this, width, ship.getPositionX());
 		drawManager.drawitem(this,itemManager.getShieldCount(),itemManager.getBombCount());
 		isboss = gameSettings.checkIsBoss();
 

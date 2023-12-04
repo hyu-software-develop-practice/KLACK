@@ -674,7 +674,7 @@ public final class DrawManager {
 	}
 
 	public void drawTutorialGuideline(final Screen screen,
-									  final int screenWidth) {
+									  final int screenWidth, final int positionX) {
 		String guide = "Move: A or D";
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.YELLOW);
@@ -683,12 +683,12 @@ public final class DrawManager {
 		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 415);
 		guide = "Shoot: SpaceBar";
 		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 430);
-		backBufferGraphics.drawOval(centerX, 460, 26, 26);
+		backBufferGraphics.drawOval(positionX-1, 460, 26, 26);
 		backBufferGraphics.setColor(Color.CYAN);
 		guide = "<-Remain bullet counter";
 		backBufferGraphics.drawString(guide, centerX - 40, 450);
 		guide = "Items counter";
-		backBufferGraphics.drawString(guide, screenWidth-120, 360);
+		backBufferGraphics.drawString(guide, screenWidth-120, 375);
 		backBufferGraphics.drawRoundRect(380, 380, 35, 75, 15, 15);
 		backBufferGraphics.setColor(Color.MAGENTA);
 		guide = "Special Enemy will briefly appears in this line!";
