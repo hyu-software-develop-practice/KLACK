@@ -53,6 +53,37 @@ public final class Core {
     public static boolean checkInfinity = false ;
 
     /**
+     * mode of the game
+     */
+    private static int mode = 1;
+    /**
+     * previous stage remaining lives
+     */
+    private static double previousHP;
+
+    private static double previousHP2;
+    /**
+     * current stage reaming lives
+     */
+    private static double currentHP;
+
+    private static double currentHP2;
+    /**
+     * check if it is BonusStage
+     */
+    private static boolean isBonusStage = false;
+    /**
+     * stage before bonus stage
+     */
+    private static int previousStage;
+    /**
+     * after stage8 --> gameover
+     */
+    private static boolean gameOver = false;
+
+
+
+    /**
      * Difficulty settings for level 1.
      */
     private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1, 1, 1);
@@ -87,6 +118,10 @@ public final class Core {
      */
     private static GameSettings SETTINGS_LEVEL_8 =
             new GameSettings(10, 1000,1, 1, 1);
+    /**
+     * Difficulty settings for bonus level.
+     */
+    private static GameSettings SETTINGS_LEVEL_9 = new GameSettings(10, 2, 100, 100000, 1, 1, 1);
 
 
     /**
@@ -190,8 +225,29 @@ public final class Core {
                     LOGGER.info("Closing title screen.");
                     break;
 
+
                 case 2:
-                    currentScreen = new SelectScreen(width, height, FPS, 0); // Dfficulty Selection
+
+
+                    currentScreen = new ModeScreen(width, height, FPS, 0);
+                    LOGGER.info("Select Mode");
+                    mode = frame.setScreen(currentScreen);
+                    if(mode == 3){
+                        returnCode = 1;
+                        LOGGER.info("Go Main");
+                        break;
+                    }
+                    else if(mode == 1){ }
+
+
+                    //main select 만 구현되어있음. 추후 수정
+                    // mode = 0 튜토리얼 mode = 2 시나리오
+
+
+
+
+
+                    currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
                     LOGGER.info("Select Difficulty");
                     difficulty = frame.setScreen(currentScreen);
                     if (difficulty == 4) {
@@ -211,6 +267,9 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_9.setDifficulty(1);
+
+
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -219,12 +278,15 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
-                        gameSettings.add(SETTINGS_LEVEL_1);
+                        gameSettings.add(SETTINGS_LEVEL_1); //dummy stage for the infiniteMode
+                        gameSettings.add(SETTINGS_LEVEL_9); //bonus stage
+
+
 
                     }
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
-                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length-1 , 1);
                     stage = frame.setScreen(currentScreen);
                     if (stage == 0) {
                         returnCode = 2;
@@ -243,6 +305,7 @@ public final class Core {
 
                     // Game & score.
                     do {
+
                         if (gameState.getLevel() == NUM_LEVELS + 1) {
                             gameState.setLevel(1);
                             currentScreen = new GameScreen(gameState,
@@ -259,13 +322,21 @@ public final class Core {
                                     width, height, FPS);
                         }
 
+                        if (gameState.getLevel() == 8 && !checkInfinity)
+                            gameOver = true;
+                        previousHP = gameState.getLivesRemaining();
+
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
+
                         LOGGER.info("Closing game screen.");
 
                         gameState = ((GameScreen) currentScreen).getGameState();
                         BulletsRemaining = gameState.getBulletsRemaining();
+                        currentHP = gameState.getLivesRemaining();
+
+
 
                         if (gameState.getLevel() == NUM_LEVELS && checkInfinity) {
                             if (Roop_Check == 0) {
@@ -344,8 +415,33 @@ public final class Core {
                                 MAX_LIVES = 1;
                             }
                         }
+
+                        else if (previousHP == currentHP && !isBonusStage && (gameState.getLevel() == 3 || gameState.getLevel() == 7)){
+                            System.out.println("보너스");
+                            previousStage = gameState.getLevel();
+                            gameState = new GameState(10,   //bonus stage로 변경
+
+                                    gameState.getScore(),
+                                    gameState.getCoin(),
+                                    gameState.getLivesRemaining(),
+                                    gameState.getBulletsShot(),
+                                    gameState.getShipsDestroyed(),
+                                    gameState.getHardCore(),
+                                    gameState.getShipColor(),
+                                    gameState.getNowSkinString(),
+                                    gameState.getOwnedSkins(),
+                                    gameState.getEquippedSkins(),
+                                    99);
+                                    isBonusStage = true;
+
+                        }
                         else {
-                            gameState = new GameState(gameState.getLevel() + 1,
+                            int nextStage = gameState.getLevel() + 1;
+                            if (isBonusStage) {
+                                nextStage = previousStage + 1;
+                                isBonusStage = false;
+                            }
+                            gameState = new GameState(nextStage,
                                     gameState.getScore(),
                                     gameState.getCoin(),
                                     gameState.getLivesRemaining(),
@@ -358,8 +454,8 @@ public final class Core {
                                     gameState.getEquippedSkins(),
                                     99);
 
-                        }
 
+                        }
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
@@ -410,7 +506,7 @@ public final class Core {
 						boxOpen = false;
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
+							&& (gameState.getLevel() <= NUM_LEVELS || gameState.getLevel() == 10) && BulletsRemaining > 0 && !gameOver);
 
 
                     // Recovery | Default State & Exit
@@ -546,6 +642,7 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
+
                 case 3:
 
                     // High scores.
@@ -605,6 +702,8 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_9.setDifficulty(1);
+
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -613,11 +712,14 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
-                        gameSettings.add(SETTINGS_LEVEL_1);
+                        gameSettings.add(SETTINGS_LEVEL_1); //dummy stage for infiniteMode
+                        gameSettings.add(SETTINGS_LEVEL_9); //bonus stage
+
+
                     }
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
-                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+                    currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length - 1, 1);
                     stage = frame.setScreen(currentScreen);
 
                     if (stage == 0) {
@@ -653,6 +755,14 @@ public final class Core {
                                     enhanceManager, itemManager,
                                     width, height, FPS);
                         }
+
+                        if (gameState_2P.getLevel() == 8 && !checkInfinity)
+                            gameOver = true;
+
+                        previousHP = gameState_2P.getLivesRemaining_1P();
+                        previousHP2 = gameState_2P.getLivesRemaining_2P();
+
+
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -661,6 +771,9 @@ public final class Core {
                         gameState_2P = ((GameScreen_2P) currentScreen).getGameState();
                         BulletsRemaining_1p = gameState_2P.getBulletsRemaining_1p();
                         BulletsRemaining_2p = gameState_2P.getBulletsRemaining_2p();
+                        currentHP = gameState_2P.getLivesRemaining_1P();
+                        currentHP2 = gameState_2P.getLivesRemaining_2P();
+
 
                         if (gameState_2P.getLevel() == NUM_LEVELS && checkInfinity) {
                             if (Roop_Check == 0) {
@@ -676,8 +789,8 @@ public final class Core {
                                         gameState_2P.getHardCore(),
                                         50, 50);
                             }
-                            if (Roop_Check == 1){
-                                if (gameState.getLivesRemaining() > 2 &&  gameState_2P.getLivesRemaining_2P() > 2){
+                            if (Roop_Check == 1) {
+                                if (gameState.getLivesRemaining() > 2 && gameState_2P.getLivesRemaining_2P() > 2) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -689,8 +802,7 @@ public final class Core {
                                             gameState_2P.getShipsDestroyed(),
                                             gameState_2P.getHardCore(),
                                             50, 50);
-                                }
-                                else if(gameState.getLivesRemaining() > 2 &&  gameState_2P.getLivesRemaining_2P() <= 2){
+                                } else if (gameState.getLivesRemaining() > 2 && gameState_2P.getLivesRemaining_2P() <= 2) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -702,8 +814,7 @@ public final class Core {
                                             gameState_2P.getShipsDestroyed(),
                                             gameState_2P.getHardCore(),
                                             50, 50);
-                                }
-                                else if(gameState.getLivesRemaining() <= 2 &&  gameState_2P.getLivesRemaining_2P() > 2){
+                                } else if (gameState.getLivesRemaining() <= 2 && gameState_2P.getLivesRemaining_2P() > 2) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -715,8 +826,7 @@ public final class Core {
                                             gameState_2P.getShipsDestroyed(),
                                             gameState_2P.getHardCore(),
                                             50, 50);
-                                }
-                                else if(gameState.getLivesRemaining() <= 2 &&  gameState_2P.getLivesRemaining_2P()<=2){
+                                } else if (gameState.getLivesRemaining() <= 2 && gameState_2P.getLivesRemaining_2P() <= 2) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -731,9 +841,8 @@ public final class Core {
                                 }
 
                                 MAX_LIVES = 2;
-                            }
-                            else if (Roop_Check >= 2) {
-                                if (gameState.getLivesRemaining() > 1 &&  gameState_2P.getLivesRemaining_2P() > 1){
+                            } else if (Roop_Check >= 2) {
+                                if (gameState.getLivesRemaining() > 1 && gameState_2P.getLivesRemaining_2P() > 1) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -745,8 +854,7 @@ public final class Core {
                                             gameState_2P.getShipsDestroyed(),
                                             gameState_2P.getHardCore(),
                                             50, 50);
-                                }
-                                else if(gameState.getLivesRemaining() > 1 &&  gameState_2P.getLivesRemaining_2P() <= 1){
+                                } else if (gameState.getLivesRemaining() > 1 && gameState_2P.getLivesRemaining_2P() <= 1) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -758,8 +866,7 @@ public final class Core {
                                             gameState_2P.getShipsDestroyed(),
                                             gameState_2P.getHardCore(),
                                             50, 50);
-                                }
-                                else if(gameState.getLivesRemaining() <= 1 &&  gameState_2P.getLivesRemaining_2P() > 1){
+                                } else if (gameState.getLivesRemaining() <= 1 && gameState_2P.getLivesRemaining_2P() > 1) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -771,8 +878,7 @@ public final class Core {
                                             gameState_2P.getShipsDestroyed(),
                                             gameState_2P.getHardCore(),
                                             50, 50);
-                                }
-                                else if(gameState.getLivesRemaining() <= 1 &&  gameState_2P.getLivesRemaining_2P()<=1){
+                                } else if (gameState.getLivesRemaining() <= 1 && gameState_2P.getLivesRemaining_2P() <= 1) {
                                     gameState_2P = new GameState_2P(1,
                                             gameState_2P.getScore_1P(),
                                             gameState_2P.getScore_2P(),
@@ -787,6 +893,44 @@ public final class Core {
                                 }
                                 MAX_LIVES = 1;
                             }
+                        }
+                        else if (previousHP == currentHP && previousHP2 == currentHP2 && !isBonusStage && (gameState_2P.getLevel() == 3 || gameState_2P.getLevel() == 7)) {
+                            previousStage = gameState_2P.getLevel();
+
+                            gameState_2P = new GameState_2P(10,  //bonus stage로 변경
+                                    gameState_2P.getScore_1P(),
+                                    gameState_2P.getScore_2P(),
+                                    gameState_2P.getCoin(),
+                                    gameState_2P.getLivesRemaining_1P(),
+                                    gameState_2P.getLivesRemaining_2P(),
+                                    gameState_2P.getBulletsShot_1P(),
+                                    gameState_2P.getBulletsShot_2P(),
+                                    gameState_2P.getShipsDestroyed(),
+                                    gameState_2P.getHardCore(),
+                                    50, 50);
+
+                            isBonusStage = true;
+
+                        } else {
+                            int nextStage = gameState_2P.getLevel() + 1;
+                            if (isBonusStage) {
+                                nextStage = previousStage + 1;
+                                isBonusStage = false;
+                            }
+
+                            gameState_2P = new GameState_2P(nextStage,
+                                    gameState_2P.getScore_1P(),
+                                    gameState_2P.getScore_2P(),
+                                    gameState_2P.getCoin(),
+                                    gameState_2P.getLivesRemaining_1P(),
+                                    gameState_2P.getLivesRemaining_2P(),
+                                    gameState_2P.getBulletsShot_1P(),
+                                    gameState_2P.getBulletsShot_2P(),
+                                    gameState_2P.getShipsDestroyed(),
+                                    gameState_2P.getHardCore(),
+                                    50, 50);
+
+
                         }
 
 
@@ -831,9 +975,9 @@ public final class Core {
                         } while (currentScreen.returnCode != 2);
                         boxOpen = false;
                         isInitMenuScreen = true;
-                    } while (gameState_2P.getLevel() <= NUM_LEVELS
+                    } while ((gameState_2P.getLevel() <= NUM_LEVELS || gameState_2P.getLevel() == 10)
                             && ((gameState_2P.getLivesRemaining_1P() > 0 && BulletsRemaining_1p > 0)
-                            || (gameState_2P.getLivesRemaining_2P() > 0 && BulletsRemaining_2p > 0)));
+                            || (gameState_2P.getLivesRemaining_2P() > 0 && BulletsRemaining_2p > 0)) && !gameOver);
 
 
                     // Recovery | Default State & Exit
@@ -960,8 +1104,9 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
-                default:
+                        case 888:
                     break;
+
             }
 
         } while (returnCode != 0);

@@ -106,6 +106,7 @@ public class StageSelectScreen extends Screen {
     private void RightMenuItem(int i) {
         if (this.Stage == TotalStage-1)
             this.Stage = 0;
+
         else
             this.Stage = i+1;
     }
