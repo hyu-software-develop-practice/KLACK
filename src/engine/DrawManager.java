@@ -1546,7 +1546,12 @@ public final class DrawManager {
 		String[] Stage = new String[stages];
 		backBufferGraphics.setFont(fontBig);
 		for (int i = 0; i < stages ; i++) {
+			if (i != stages - 1)
 				Stage[i] = String.valueOf(i+1);
+			else {
+				backBufferGraphics.setFont(fontRegular);
+				Stage[i] = "inf";
+			}
 			if (option == i)
 				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			else
@@ -1830,7 +1835,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GREEN);
 
 		if (number >= 4) {
-			if (level == 9) {
+			if (level == 10) {
 				pumpingLevel(screen, "Bonus Stage", screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
 			}

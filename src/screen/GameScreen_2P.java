@@ -175,7 +175,7 @@ public class GameScreen_2P extends Screen {
         this.BulletsRemaining_2p = gameState.getBulletsRemaining_2p();
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
-        if (getGameState().getLevel() == 9) //when stage is bonus
+        if (getGameState().getLevel() == 10) //when stage is bonus
             this.laserActivate = false;
         if (gameSettings.getDifficulty() > 1) {
             LASER_INTERVAL = 3000;
@@ -647,7 +647,7 @@ public class GameScreen_2P extends Screen {
                 drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
         }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
-        if (level == 9) { drawManager.drawBonus(this);}
+        if (level == 10) { drawManager.drawBonus(this);}
         else drawManager.drawLevel(this, this.level);
         if (inputManager.isKeyPressedOnce(KeyEvent.VK_C)) {
             isSoundOn = !isSoundOn;
