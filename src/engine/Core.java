@@ -53,6 +53,7 @@ public final class Core {
     public static boolean checkInfinity = false ;
 
     /**
+<<<<<<< HEAD
      * mode of the game
      */
     private static int mode = 1;
@@ -83,6 +84,10 @@ public final class Core {
 
 
 
+    /**
+     * Difficulty settings for tutorial level.
+     */
+    private static GameSettings SETTINGS_LEVEL_0 = new GameSettings();
     /**
      * Difficulty settings for level 1.
      */
@@ -206,7 +211,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
 
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins, 99);
+            gameState = new GameState(0, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins, 99);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, MAX_LIVES,0, 0, 0, false, 50,50);
 
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
@@ -225,6 +230,30 @@ public final class Core {
                     LOGGER.info("Closing title screen.");
                     break;
 
+                    //메인화면에서 튜토리얼 접근할때 쓰려고 만든건데 안쓰게 돼서 일단은 그냥 놔둘게요 필요 없어보이면 지우셔도 됩니다.
+//                case -1:
+//                    difficulty = frame.setScreen(currentScreen);
+//                    LOGGER.info("Difficulty : " + difficulty);
+//                    gameSettings = new ArrayList<GameSettings>();
+//                    SETTINGS_LEVEL_0.setDifficulty(difficulty);
+//                    gameSettings.add(SETTINGS_LEVEL_0);
+//                    outgame_bgm.OutGame_bgm_stop();
+//                    currentScreen = new GameScreen(gameState,
+//                            gameSettings.get(gameState.getLevel() - 1),
+//                            enhanceManager, itemManager,
+//                            width, height, FPS);
+//                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+//                            + " game screen at " + FPS + " fps.");
+//                    returnCode = frame.setScreen(currentScreen);
+//                    LOGGER.info("Closing game screen.");
+//                    if (returnCode == 1) { // Quit during the game
+//                        currentScreen = new TitleScreen(width, height, FPS);
+//                        frame.setScreen(currentScreen);
+//                        break;
+//                    } else {
+//                        // If there is an insufficient number of coins required for recovery
+//                        returnCode = 1; }
+//                    break;
 
                 case 2:
 
@@ -236,6 +265,29 @@ public final class Core {
                         returnCode = 1;
                         LOGGER.info("Go Main");
                         break;
+                    }
+                    else if(mode == 0){
+                        difficulty = frame.setScreen(currentScreen);
+                        LOGGER.info("Difficulty : " + difficulty);
+                        gameSettings = new ArrayList<GameSettings>();
+                        SETTINGS_LEVEL_0.setDifficulty(difficulty);
+                        gameSettings.add(SETTINGS_LEVEL_0);
+                        outgame_bgm.OutGame_bgm_stop();
+                        currentScreen = new GameScreen(gameState,
+                                gameSettings.get(gameState.getLevel()),
+                                enhanceManager, itemManager,
+                                width, height, FPS);
+                        LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                + " game screen at " + FPS + " fps.");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing game screen.");
+                        if (returnCode == 1) { // Quit during the game
+                            currentScreen = new TitleScreen(width, height, FPS);
+                            frame.setScreen(currentScreen);
+                            break;
+                        } else {
+                            // If there is an insufficient number of coins required for recovery
+                            returnCode = 1; }
                     }
                     else if(mode == 1){ }
 

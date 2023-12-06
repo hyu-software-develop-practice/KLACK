@@ -681,6 +681,30 @@ public final class DrawManager {
 		backBufferGraphics.drawString(timeString, screen.getWidth() - 50, 60);
 	}
 
+	public void drawTutorialGuideline(final Screen screen,
+									  final int screenWidth, final int positionX) {
+		String guide = "Move: A or D";
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.YELLOW);
+		int textWidth = backBufferGraphics.getFontMetrics().stringWidth(guide);
+		int centerX = screenWidth / 2;
+		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 415);
+		guide = "Shoot: SpaceBar";
+		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 430);
+		backBufferGraphics.drawOval(positionX-1, 460, 26, 26);
+		backBufferGraphics.setColor(Color.CYAN);
+		guide = "<-Remain bullet counter";
+		backBufferGraphics.drawString(guide, centerX - 40, 450);
+		guide = "Items counter";
+		backBufferGraphics.drawString(guide, screenWidth-120, 375);
+		backBufferGraphics.drawRoundRect(380, 380, 35, 75, 15, 15);
+		backBufferGraphics.setColor(Color.MAGENTA);
+		guide = "Special Enemy will briefly appears in this line!";
+		textWidth = backBufferGraphics.getFontMetrics().stringWidth(guide);
+		backBufferGraphics.drawString(guide, screenWidth - textWidth, 80);
+		backBufferGraphics.drawLine(0, 65, screenWidth, 65);
+	}
+
 	private String formatTime(long elapsedTime) {
 		long totalSeconds = elapsedTime / 1000;
 		long minutes = totalSeconds / 60;
@@ -1833,11 +1857,13 @@ public final class DrawManager {
 	public void drawCountDown(final Screen screen, final int level,
 			final int number, final boolean bonusLife) {
 		backBufferGraphics.setColor(Color.GREEN);
-
 		if (number >= 4) {
 			if (level == 10) {
 				pumpingLevel(screen, "Bonus Stage", screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
+			}
+			else if (level == 0) {
+				pumpingLevel(screen, "Tutorial", screen.getHeight()/2 + fontBigMetrics.getHeight() / 3);
 			}
 			else {
 				if (!bonusLife) {
