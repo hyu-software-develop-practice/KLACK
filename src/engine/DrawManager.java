@@ -615,6 +615,14 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
+
+	public void drawBonus(final Screen screen){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.cyan);
+		backBufferGraphics.drawString("Bonus level", 150, 28);
+	}
+
+
 	public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setColor(Color.GREEN);
 		backBufferGraphics.drawRect(315,427,54,23);
@@ -1561,8 +1569,13 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
 		String[] Stage = new String[stages];
 		backBufferGraphics.setFont(fontBig);
-		for (int i = 0; i < stages; i++) {
-			Stage[i] = String.valueOf(i+1);
+		for (int i = 0; i < stages ; i++) {
+			if (i != stages - 1)
+				Stage[i] = String.valueOf(i+1);
+			else {
+				backBufferGraphics.setFont(fontRegular);
+				Stage[i] = "inf";
+			}
 			if (option == i)
 				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			else
@@ -1844,20 +1857,26 @@ public final class DrawManager {
 	public void drawCountDown(final Screen screen, final int level,
 			final int number, final boolean bonusLife) {
 		backBufferGraphics.setColor(Color.GREEN);
-
-		if (number >= 4)
-			if (!bonusLife) {
-				if (level != 0)
-				pumpingLevel(screen, "Level " + level,screen.getHeight() / 2
+		if (number >= 4) {
+			if (level == 10) {
+				pumpingLevel(screen, "Bonus Stage", screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
-				else
-					pumpingLevel(screen, "Tutorial", screen.getHeight()/2 + fontBigMetrics.getHeight() / 3);
-			} else {
-				drawCenteredBigString(screen, "Level " + level
-						+ " - Bonus life!",
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3);
 			}
+			else if (level == 0) {
+				pumpingLevel(screen, "Tutorial", screen.getHeight()/2 + fontBigMetrics.getHeight() / 3);
+			}
+			else {
+				if (!bonusLife) {
+					pumpingLevel(screen, "Level " + level, screen.getHeight() / 2
+							+ fontBigMetrics.getHeight() / 3);
+				} else {
+					drawCenteredBigString(screen, "Level " + level
+									+ " - Bonus life!",
+							screen.getHeight() / 2
+									+ fontBigMetrics.getHeight() / 3);
+				}
+			}
+		}
 		else if (number != 0) {
 			if (isFirst){
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
