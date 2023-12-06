@@ -178,7 +178,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
 
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins, 99);
+            gameState = new GameState(0, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins, 99);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, MAX_LIVES,0, 0, 0, false, 50,50);
 
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
@@ -240,7 +240,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_0);
                         outgame_bgm.OutGame_bgm_stop();
                         currentScreen = new GameScreen(gameState,
-                                gameSettings.get(gameState.getLevel() - 1),
+                                gameSettings.get(gameState.getLevel()),
                                 enhanceManager, itemManager,
                                 width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT

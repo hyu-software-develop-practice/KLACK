@@ -1847,8 +1847,11 @@ public final class DrawManager {
 
 		if (number >= 4)
 			if (!bonusLife) {
+				if (level != 0)
 				pumpingLevel(screen, "Level " + level,screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
+				else
+					pumpingLevel(screen, "Tutorial", screen.getHeight()/2 + fontBigMetrics.getHeight() / 3);
 			} else {
 				drawCenteredBigString(screen, "Level " + level
 						+ " - Bonus life!",
