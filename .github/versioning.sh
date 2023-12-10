@@ -5,18 +5,16 @@ V=""
 #get parameters
 V=$LABEL
 
-#get highest tag number, and add 1.0.0 if doesn't exist
-CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
-
-if [[ $CURRENT_VERSION == '' ]]
+#get highest tag number, and add 0.1.0 if doesn't exist
+if [[ $VERSION == '' ]]
 then
-  CURRENT_VERSION=$VERSION
+  VERSION="v0.1.0"
 fi
-echo "Current Version: $CURRENT_VERSION"
+echo "Current Version: $VERSION"
 
 
 #replace . with space so can split into an array
-CURRENT_VERSION_PARTS=(${CURRENT_VERSION//./ })
+CURRENT_VERSION_PARTS=(${VERSION//./ })
 
 #get number parts
 VNUM1=${CURRENT_VERSION_PARTS[0]}
@@ -40,7 +38,7 @@ fi
 
 #create new tag
 NEW_TAG="v$VNUM1.$VNUM2.$VNUM3"
-echo "($V) updating $CURRENT_VERSION to $NEW_TAG"
+echo "($V) updating $VERSION to $NEW_TAG"
 
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
