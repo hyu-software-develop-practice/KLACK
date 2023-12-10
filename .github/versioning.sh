@@ -8,7 +8,7 @@ V=$LABEL
 #get highest tag number, and add 0.1.0 if doesn't exist
 if [[ $VERSION == '' ]]
 then
-  VERSION="v0.1.0"
+  VERSION="0.1.0"
 fi
 echo "Current Version: $VERSION"
 
