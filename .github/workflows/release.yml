@@ -18,8 +18,8 @@ jobs:
         run: |
           echo "::set-output name=VERSION::$(echo "${{ github.ref_name }}")"
 
-      - name: Auto versioning
-        run: bash .github/versioning.sh
+#      - name: Auto versioning
+#        run: bash .github/versioning.sh
 
       - name: Generate release notes
         id: release_notes
