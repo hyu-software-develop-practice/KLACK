@@ -15,9 +15,9 @@ jobs:
     if: github.event.pull_request.merged == true && github.base_ref == 'main'
     steps:
       - uses: actions/checkout@v3
-                - name: label name extract
-                id: extract_l_name
-                run: echo "##[set-output name=LABEL;]$(echo '${{ github.event.pull_request.labels }}')"
+      - name: label name extract
+        id: extract_l_name
+        run: echo "##[set-output name=LABEL;]$(echo '${{ github.event.pull_request.labels }}')"
 
       - name: Auto versioning
         run: bash .github/versioning.sh
