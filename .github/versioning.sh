@@ -3,12 +3,7 @@
 VERSION=""
 
 #get parameters
-while getopts v: flag
-do
-  case "${flag}" in
-    v) VERSION=${OPTARG};;
-  esac
-done
+VERSION=$LABEL
 
 #get highest tag number, and add 1.0.0 if doesn't exist
 CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
@@ -38,7 +33,7 @@ elif [[ $VERSION == 'patch' ]]
 then
   VNUM3=$((VNUM3+1))
 else
-  echo "No version type (https://semver.org/) or incorrect type specified, try: -v [major, minor, patch]"
+  echo "No version type (https://semver.org/) or incorrect type specified, try: -v[major, minor, patch]"
   exit 1
 fi
 
