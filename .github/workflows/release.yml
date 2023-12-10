@@ -7,7 +7,6 @@ jobs:
   build:
     name: create release
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && github.base_ref == 'main'
     steps:
       - uses: actions/checkout@v3
       - name: label name extract
