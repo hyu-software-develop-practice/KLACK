@@ -615,34 +615,26 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
-
-	public void drawBonus(final Screen screen){
-		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.setColor(Color.cyan);
-		backBufferGraphics.drawString("Bonus level", 150, 28);
-	}
-
-
 	public void drawSoundButton1(GameScreen gamescreen){
-		backBufferGraphics.setColor(Color.GREEN);
-		backBufferGraphics.drawRect(315,427,54,23);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
 	}
 
 	public void drawSoundButton2(GameScreen_2P gamescreen_2P){
-		backBufferGraphics.setColor(Color.GREEN);
-		backBufferGraphics.drawRect(315,427,54,23);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
 	}
 
 	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.GREEN);
-		backBufferGraphics.drawString(statusText, 318, 447);
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
 	}
 
 	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.GREEN);
-		backBufferGraphics.drawString(statusText, 318, 447);
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
 	}
 
 
@@ -676,33 +668,9 @@ public final class DrawManager {
 
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(Color.WHITE);
 		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, screen.getWidth() - 50, 60);
-	}
-
-	public void drawTutorialGuideline(final Screen screen,
-									  final int screenWidth, final int positionX) {
-		String guide = "Move: A or D";
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.YELLOW);
-		int textWidth = backBufferGraphics.getFontMetrics().stringWidth(guide);
-		int centerX = screenWidth / 2;
-		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 415);
-		guide = "Shoot: SpaceBar";
-		backBufferGraphics.drawString(guide, centerX - textWidth / 2, 430);
-		backBufferGraphics.drawOval(positionX-1, 460, 26, 26);
-		backBufferGraphics.setColor(Color.CYAN);
-		guide = "<-Remain bullet counter";
-		backBufferGraphics.drawString(guide, centerX - 40, 450);
-		guide = "Items counter";
-		backBufferGraphics.drawString(guide, screenWidth-120, 375);
-		backBufferGraphics.drawRoundRect(380, 380, 35, 75, 15, 15);
-		backBufferGraphics.setColor(Color.MAGENTA);
-		guide = "Special Enemy will briefly appears in this line!";
-		textWidth = backBufferGraphics.getFontMetrics().stringWidth(guide);
-		backBufferGraphics.drawString(guide, screenWidth - textWidth, 80);
-		backBufferGraphics.drawLine(0, 65, screenWidth, 65);
+		backBufferGraphics.drawString(timeString, 30, 450);
 	}
 
 	private String formatTime(long elapsedTime) {
@@ -747,22 +715,22 @@ public final class DrawManager {
 
 	public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, 10, 450);
+		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
 	}
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets_1p: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, 10, 430);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 60);
 	}
 	public void BulletsCount_2p(final Screen screen, final int BulletsCount_2p) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
-		backBufferGraphics.drawString(text, 10, 450);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 80);
 	}
 
 	/**
@@ -850,18 +818,18 @@ public final class DrawManager {
 		g2d.drawString(live, textX, textY);
 	}
 
-	public void drawitem(final Screen screen, final int itemcount1, final int itemcount2) {
+	public void drawitemcircle(final Screen screen, final int itemcount1, final int itemcount2) {
 		Graphics2D g2d = (Graphics2D) backBufferGraphics;
 		// this.drawEntity(SpriteType.Bullet,350,450,5,5); <<-- 이런식으로 아이콘 추가
 		float strokeWidth = 3.0f; // 원의 선굵기
 		BasicStroke stroke = new BasicStroke(strokeWidth); // 원의 선굵기
 		g2d.setStroke(stroke); // 원의 선굵기
-		g2d.setColor(Color.green); // 원의 선색깔
-		g2d.drawOval(385, 385, 25, 25); // 원 위치
-		g2d.drawOval(385, 425, 25, 25); // 원 위치
-		g2d.setColor(Color.green); // 원의 선색깔
-		g2d.drawString(Integer.toString(itemcount1), 390, 403); // 글자 추가
-		g2d.drawString(Integer.toString(itemcount2), 390, 443); // 글자 추가
+		g2d.setColor(Color.white); // 원의 선색깔
+		g2d.fillOval(375, 310, 55, 45); // 원 위치
+		g2d.fillOval(375, 365, 55, 45); // 원 위치
+		g2d.setColor(Color.black); // 원의 선색깔
+		g2d.drawString(Integer.toString(itemcount1), 395, 340); // 글자 추가
+		g2d.drawString(Integer.toString(itemcount2), 395, 395); // 글자 추가
 	}
 
 	public void drawBossLivesbar(final Screen screen, int boss_lives) {
@@ -1066,7 +1034,6 @@ public final class DrawManager {
 		String playString = "P L A Y";
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
-		String onlineString = "O N L I N E";
 		String exitString = "E X I T";
 
 		if (option == 2)
@@ -1087,69 +1054,13 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
-		if (option == 5)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, onlineString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 6);
 		if (option == 0)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 8);
+				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
-
-	/**
-	 * Draws mode select menu.
-	 *
-	 * @param screen
-	 *               Screen to draw on.
-	 * @param option
-	 *               Option selected.
-	 */
-	public void modeSelect(final Screen screen, final int option) {
-		String SelectString = "Select mode with W + S, confirm with SPACE.";
-		String TutorialString = "T U T O R I A L   M O D E";
-		String PlayString = "B A S I C   M O D E";
-		String SinarioString = "S I N A R I O  M O D E";
-		String MainString = "M A I N";
-
-		backBufferGraphics.setColor(blinkingColor("GRAY"));
-		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
-
-		if (option == 0)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, TutorialString,
-				screen.getHeight() / 6 * 2);
-		if (option == 1)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, PlayString,
-				screen.getHeight() / 6 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 2)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, SinarioString, screen.getHeight() / 6 * 2
-				+ fontRegularMetrics.getHeight() * 4);
-		if (option == 3)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
-				+ fontRegularMetrics.getHeight() * 6);
-	}
-
-
-
-
-
-
 
 
 	public void drawRandomBox(final Screen screen, final int option) {
@@ -1569,13 +1480,8 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
 		String[] Stage = new String[stages];
 		backBufferGraphics.setFont(fontBig);
-		for (int i = 0; i < stages ; i++) {
-			if (i != stages - 1)
-				Stage[i] = String.valueOf(i+1);
-			else {
-				backBufferGraphics.setFont(fontRegular);
-				Stage[i] = "inf";
-			}
+		for (int i = 0; i < stages; i++) {
+			Stage[i] = String.valueOf(i+1);
 			if (option == i)
 				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			else
@@ -1857,26 +1763,17 @@ public final class DrawManager {
 	public void drawCountDown(final Screen screen, final int level,
 			final int number, final boolean bonusLife) {
 		backBufferGraphics.setColor(Color.GREEN);
-		if (number >= 4) {
-			if (level == 10) {
-				pumpingLevel(screen, "Bonus Stage", screen.getHeight() / 2
+
+		if (number >= 4)
+			if (!bonusLife) {
+				pumpingLevel(screen, "Level " + level,screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
+			} else {
+				drawCenteredBigString(screen, "Level " + level
+						+ " - Bonus life!",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3);
 			}
-			else if (level == 0) {
-				pumpingLevel(screen, "Tutorial", screen.getHeight()/2 + fontBigMetrics.getHeight() / 3);
-			}
-			else {
-				if (!bonusLife) {
-					pumpingLevel(screen, "Level " + level, screen.getHeight() / 2
-							+ fontBigMetrics.getHeight() / 3);
-				} else {
-					drawCenteredBigString(screen, "Level " + level
-									+ " - Bonus life!",
-							screen.getHeight() / 2
-									+ fontBigMetrics.getHeight() / 3);
-				}
-			}
-		}
 		else if (number != 0) {
 			if (isFirst){
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
@@ -2941,13 +2838,13 @@ if (option == 35)
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.WHITE);
 			String text = String.format("%d", ComboCount) + " Combo";
-			backBufferGraphics.drawString(text, screen.getWidth()/2-15, 400);
+			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 		}
 		else{
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.red);
 			String text = "Miss";
-			backBufferGraphics.drawString(text, screen.getWidth()/2-10, 400);
+			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 		}
 	}
 }
