@@ -2395,9 +2395,9 @@ if (option == 35)
 	 *               Screen to draw on.
 	 * @param option
 	 *               Option selected.
-	 * @param valEnhanceArea
+	 * @param numEnhanceArea
 	 *                Current Value of Enhanced Area Range.
-	 * @param valEnhanceDamage
+	 * @param numEnhanceDamage
 	 *               Current Value of Enhanced Damage.
 	 * @param lvEnhanceArea
 	 *               Current Level of Enhanced Area Range.
