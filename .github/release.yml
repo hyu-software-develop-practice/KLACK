@@ -1,5 +1,9 @@
 update:
     name: 프로젝트 버전 업데이트
+    on:
+        push:
+            branches:
+                - main
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true && github.base_ref == 'main'
     steps:
