@@ -35,9 +35,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Downwards speed of the formation. */
 	private static final int Y_SPEED = 4;
 	/** Speed of the bullets shot by the members. */
-	private static final int BULLET_SPEED = 4;
+	private static int BULLET_SPEED = 4;
 	/** Proportion of differences between shooting times. */
-	private static final double SHOOTING_VARIANCE = .2;
+	private static double SHOOTING_VARIANCE = .2;
 	/** Margin on the sides of the screen. */
 	private static final int SIDE_MARGIN = 20;
 	/** Margin on the bottom of the screen. */
@@ -152,8 +152,34 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.nShipsWide = gameSettings.getFormationWidth();
 			this.nShipsHigh = gameSettings.getFormationHeight();
 			this.shootingInterval = gameSettings.getShootingFrecuency();
-			this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
-					* SHOOTING_VARIANCE);
+			if (level == 1){
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 1);
+			}
+			else if (level == 2) {
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 2);
+			}
+			else if (level == 3) {
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 2);
+			}
+			else if (level == 4) {
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 3);
+			}
+			else if (level == 5) {
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 3);
+			}
+			else if (level == 6) {
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 4);
+			}
+			else if (level == 7) {
+				this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
+						* SHOOTING_VARIANCE * 4);
+			}
 			this.baseSpeed = gameSettings.getBaseSpeed();
 			this.baseAttackDamage = gameSettings.getBaseAttackDamage();
 			this.movementSpeed = this.baseSpeed;
