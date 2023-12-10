@@ -11,10 +11,10 @@ tasks.register('updateVersion') {
         def increment = project.properties['increment']
         def newVersion = ''
         switch (increment) {
-            case 'major':
+            case 'major update':
                 newVersion = "${(currentVersion.split("\\.")[0].toInteger() + 1)}.0.0"
                 break
-            case 'minor':
+            case 'minor update':
                 newVersion = "${currentVersion.split("\\.")[0]}.${(currentVersion.split("\\.")[1].toInteger() + 1)}.0"
                 break
             case 'patch':
