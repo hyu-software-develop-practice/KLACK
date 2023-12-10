@@ -17,11 +17,11 @@ public class GameSettings {
 	/** Frequency of enemy shootings, +/- 30%. */
 	private int shootingFrecuency;
 	/** Difficulty of Game */
-
 	private int difficulty;
 	/** Check if the stage is boss stage. */
 	private boolean isBossStage;
-
+	/** Check if the stage is tutorial stage. */
+	private boolean isTutorial;
 	/** Damage of area. */
 	private int baseAreaDamage;
 	/** Damage of Attack. */
@@ -54,8 +54,24 @@ public class GameSettings {
 		this.shootingFrecuency = shootingFrecuency;
 		this.difficulty = difficulty;
 		this.isBossStage = false;
+		this.isTutorial = false;
 		this.baseAreaDamage = baseAreaDamage;
 		this.baseAttackDamage = baseAttackDamage;
+	}
+
+	/**
+	 * Constructor, Tutorial stage.
+	 */
+	public GameSettings() {
+		this.formationWidth = 5;
+		this.formationHeight = 2;
+		this.baseSpeed = 60;
+		this.shootingFrecuency = 100000000;
+		this.difficulty = 0;
+		this.isBossStage = false;
+		this.isTutorial = true;
+		this.baseAreaDamage = 1;
+		this.baseAttackDamage = 10;
 	}
 	/**
 	 * Constructor, boss stage.
@@ -75,6 +91,7 @@ public class GameSettings {
 		this.shootingFrecuency = shootingFrecuency;
 		this.difficulty = difficulty;
 		this.isBossStage = true;
+		this.isTutorial = false;
 		this.baseAreaDamage = baseAreaDamage;
 		this.baseAttackDamage = baseAttackDamage;
 	}
@@ -135,6 +152,11 @@ public class GameSettings {
 	 */
 	public final boolean checkIsBoss() {return this.isBossStage; }
 
+	/**
+	 * Check if the stage is tutorial stage
+	 * @return True if the stage is tutorial stage
+	 */
+	public final boolean checkIsTutorial() {return this.isTutorial; }
 
 	/**
 	 * @return the Enhanced Attack Damage
