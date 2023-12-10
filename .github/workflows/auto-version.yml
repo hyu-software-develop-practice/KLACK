@@ -1,0 +1,23 @@
+name: Auto Version
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: label name extract
+        id: extract_l_name
+        run: echo "##[set-output name=LABEL;]$(echo '${{ github.event.pull_request.labels }}')"
+
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Auto versioning
+        run: bash .github/versioning.sh

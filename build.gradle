@@ -27,36 +27,3 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
-
-tasks.register('updateVersion') {
-    doFirst {
-        def currentVersion = ''
-        def ymlFile = file('src/main/resources/application.yml')
-        ymlFile.text.split('\n').each {
-            if (it.startsWith('version: ')) {
-                currentVersion = it.split(' ')[1]
-            }
-        }
-
-        def increment = project.properties['increment']
-        def newVersion = ''
-        switch (increment) {
-            case 'major update':
-                newVersion = "${(currentVersion.split("\\.")[0].toInteger() + 1)}.0.0"
-                break
-            case 'minor update':
-                newVersion = "${currentVersion.split("\\.")[0]}.${(currentVersion.split("\\.")[1].toInteger() + 1)}.0"
-                break
-            case 'patch':
-                newVersion = "${currentVersion.split("\\.")[0]}.${currentVersion.split("\\.")[1]}.${(currentVersion.split("\\.")[2].toInteger() + 1)}"
-                break
-            default:
-                println "No increment specified"
-                return
-        }
-
-        ymlFile.text = ymlFile.text.replace("version: $currentVersion", "version: $newVersion")
-        def gradleFile = file('build.gradle')
-        gradleFile.text = gradleFile.text.replace("version = '${project.version}'", "version = '$newVersion-SNAPSHOT'")
-    }
-}
