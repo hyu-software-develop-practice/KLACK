@@ -11,15 +11,15 @@ jobs:
       - uses: actions/checkout@v3
       - name: label name extract
         id: extract_l_name
-        run: echo "##[set-output name=LABEL;]$(echo '${{ github.event.pull_request.labels }}')"
-
-      - name: Auto versioning
-        run: bash .github/versioning.sh
+        run: echo "::set-output name=LABEL::$(echo '${{ github.event.pull_request.labels }}')"
 
       - name: version name extract
         id: extract_v_name
         run: |
-          echo "##[set-output name=VERSION;]$(echo "${{ github.ref_name }}")"
+          echo "::set-output name=VERSION::$(echo "${{ github.ref_name }}")"
+
+      - name: Auto versioning
+        run: bash .github/versioning.sh
 
       - name: Generate release notes
         id: release_notes
