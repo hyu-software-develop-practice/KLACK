@@ -22,10 +22,6 @@ jobs:
       - name: Auto versioning
         run: bash .github/versioning.sh
 
-      - name: label name extract
-        id: extract_l_name
-        run: echo "##[set-output name=LABEL;]$(echo '${{ github.event.pull_request.labels }}')"
-
       - name: version name extract
         id: extract_v_name
         run: |
